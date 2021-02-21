@@ -1,26 +1,24 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <layout-header />
+  <main>
+    <router-view />
+  </main>
+  <layout-footer />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import LayoutHeader from "@/components/layout/LayoutHeader";
+import LayoutFooter from "@/components/layout/LayoutFooter";
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    LayoutHeader,
+    LayoutFooter,
+  },
+  created() {
+    this.$store.dispatch("loadRecipes");
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style lang="scss"></style>
