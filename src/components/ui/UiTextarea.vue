@@ -2,9 +2,8 @@
 
 <script>
 export default {
-  name: "UiTextarea",
-};
+  name: 'UiTextarea'
+}
 </script>
 
-<style lang="scss" module>
-</style>
+<style lang="scss" module></style>

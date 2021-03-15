@@ -1,28 +1,36 @@
 <template>
-  <div :class="setClass">
+  <div :class="setClass()">
     <slot />
   </div>
 </template>
 
 <script>
+import { getCurrentInstance } from 'vue'
+
 export default {
-  name: "GridCol",
+  name: 'GridCol',
   props: {
     classList: {
       type: Array,
-      default: () => ["col"],
-    },
+      default: () => ['col']
+    }
   },
-  computed: {
-    setClass() {
-      let resultClassList = [];
+  setup (props) {
+    const { proxy } = getCurrentInstance()
 
-      this.classList.forEach((item) => {
-        resultClassList.push(this.$customStyle[item]);
-      });
+    function setClass () {
+      let resultClassList = []
 
-      return resultClassList;
-    },
-  },
-};
+      props.classList.forEach(item => {
+        resultClassList.push(proxy.$customStyle[item])
+      })
+
+      return resultClassList
+    }
+
+    return {
+      setClass
+    }
+  }
+}
 </script>

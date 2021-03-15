@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "LayoutSection",
-};
+  name: 'LayoutSection'
+}
 </script>

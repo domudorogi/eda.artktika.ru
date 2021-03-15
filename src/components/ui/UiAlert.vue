@@ -1,10 +1,13 @@
-<template></template>
+<template>
+  <div role="alert">
+    <slot />
+  </div>
+</template>
 
 <script>
 export default {
-  name: "UiAlert",
-};
+  name: 'UiAlert'
+}
 </script>
 
-<style lang="scss" module>
-</style>
+<style lang="scss" module></style>

@@ -5,7 +5,7 @@
       $customStyle['rounded-pill'],
       $customStyle['bg-primary'],
       $customStyle['mb-1'],
-      $customStyle['me-1'],
+      $customStyle['me-1']
     ]"
   >
     <slot />
@@ -14,8 +14,8 @@
 
 <script>
 export default {
-  name: "UiBadge",
-};
+  name: 'UiBadge'
+}
 </script>
 
 <style lang="scss" module></style>

@@ -4,7 +4,7 @@
     :class="[
       $style['logotype'],
       $customStyle['h5'],
-      $customStyle['text-uppercase'],
+      $customStyle['text-uppercase']
     ]"
   >
     {{ logoText }}
@@ -13,14 +13,14 @@
 
 <script>
 export default {
-  name: "Logotype",
+  name: 'Logotype',
   props: {
     logoText: {
       type: String,
-      default: "",
-    },
-  },
-};
+      default: ''
+    }
+  }
+}
 </script>
 
 <style lang="scss" module>

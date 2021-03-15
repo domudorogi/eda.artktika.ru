@@ -14,8 +14,8 @@
 
 <script>
 export default {
-  name: "UiSkeleton",
-};
+  name: 'UiSkeleton'
+}
 </script>
 
 <style lang="scss" module>
@@ -41,12 +41,12 @@ export default {
     }
 
     &--first {
-      width: 60%;
+      width: 80%;
       animation-delay: 0.04s;
     }
 
     &--second {
-      width: 80%;
+      width: 90%;
       animation-delay: 0.05s;
     }
 

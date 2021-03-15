@@ -8,7 +8,7 @@
             :class="[
               $customStyle['img-fluid'],
               $customStyle['border'],
-              $customStyle['border-3'],
+              $customStyle['border-3']
             ]"
             src=""
             alt=""
@@ -25,7 +25,7 @@
               $customStyle['border'],
               $customStyle['mb-4'],
               $customStyle['list-group'],
-              $customStyle['list-group-flush'],
+              $customStyle['list-group-flush']
             ]"
           >
             <li
@@ -33,7 +33,7 @@
                 $customStyle['list-group-item'],
                 $customStyle['d-flex'],
                 $customStyle['flex-wrap'],
-                $customStyle['justify-content-between'],
+                $customStyle['justify-content-between']
               ]"
             >
               <strong>Время приготовления:</strong>
@@ -83,48 +83,48 @@
 </template>
 
 <script>
-import GridContainer from "@/components/grid/GridContainer";
-import GridRow from "@/components/grid/GridRow";
-import GridCol from "@/components/grid/GridCol";
-import LayoutSection from "@/components/layout/LayoutSection";
-import UiSkeleton from "@/components/ui/UiSkeleton";
-import { mapGetters } from "vuex";
+import GridContainer from '@/components/grid/GridContainer'
+import GridRow from '@/components/grid/GridRow'
+import GridCol from '@/components/grid/GridCol'
+import LayoutSection from '@/components/layout/LayoutSection'
+import UiSkeleton from '@/components/ui/UiSkeleton'
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "ViewRecipe",
+  name: 'ViewRecipe',
   components: {
     GridContainer,
     GridRow,
     GridCol,
     LayoutSection,
-    UiSkeleton,
+    UiSkeleton
   },
-  data() {
+  data () {
     return {
       pageId: this.$route.params.id,
       isLoading: true,
-      products: [],
-    };
+      products: []
+    }
   },
   computed: {
-    ...mapGetters(["getPageRecipe"]),
-    recipe() {
-      return this.getPageRecipe;
-    },
+    ...mapGetters(['getPageRecipe']),
+    recipe () {
+      return this.getPageRecipe
+    }
   },
   methods: {
-    updateName() {
-      this.$store.dispatch("calcComposition", { v1: "4", v2: "3" }); // update vuex store state
-    },
+    updateName () {
+      this.$store.dispatch('calcComposition', { v1: '4', v2: '3' }) // update vuex store state
+    }
   },
-  mounted() {
+  mounted () {
     //this.recipe.title = this.getRecipe(this.pageId).title;
-    setTimeout(() => (this.isLoading = false), 600);
+    setTimeout(() => (this.isLoading = false), 600)
   },
-  created() {
-    this.$store.dispatch("loadRecipe", this.pageId);
-  },
-};
+  created () {
+    this.$store.dispatch('loadRecipe', this.pageId)
+  }
+}
 </script>
 
 <style lang="scss" module></style>

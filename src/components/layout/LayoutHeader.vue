@@ -4,7 +4,7 @@
       :class="[
         $style['header__top'],
         $customStyle['pt-3'],
-        $customStyle['pb-3'],
+        $customStyle['pb-3']
       ]"
     >
       <grid-container>
@@ -16,7 +16,7 @@
             <nav
               :class="[
                 $customStyle['nav'],
-                $customStyle['justify-content-end'],
+                $customStyle['justify-content-end']
               ]"
             >
               <router-link
@@ -26,6 +26,12 @@
                 :to="link.link"
               >
                 {{ link.name }}
+                <span
+                  v-if="link.favorite"
+                  :class="[$customStyle['badge'], $customStyle['bg-dark']]"
+                >
+                  {{ favoriteCount }}
+                </span>
               </router-link>
             </nav>
           </grid-col>
@@ -36,7 +42,7 @@
       :class="[
         $style['header__bottom'],
         $customStyle['pt-3'],
-        $customStyle['pb-3'],
+        $customStyle['pb-3']
       ]"
     >
       <grid-container>
@@ -46,7 +52,7 @@
               type="text"
               :class="[
                 $customStyle['form-control'],
-                $customStyle['form-control-lg'],
+                $customStyle['form-control-lg']
               ]"
               id=""
             />
@@ -58,28 +64,36 @@
 </template>
 
 <script>
-import GridContainer from "@/components/grid/GridContainer";
-import GridRow from "@/components/grid/GridRow";
-import GridCol from "@/components/grid/GridCol";
-import Logotype from "@/components/Logotype.vue";
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+import GridContainer from '@/components/grid/GridContainer'
+import GridRow from '@/components/grid/GridRow'
+import GridCol from '@/components/grid/GridCol'
+import Logotype from '@/components/Logotype.vue'
 
 export default {
-  name: "LayoutHeader",
+  name: 'LayoutHeader',
   components: {
     GridContainer,
     GridRow,
     GridCol,
-    Logotype,
+    Logotype
   },
-  data() {
+  setup () {
+    const store = useStore()
+    const favoriteCount = computed(
+      () => store.getters.getFavoriteRecipes.length
+    )
+
     return {
+      favoriteCount,
       navLinks: [
-        { link: "/", name: "Главная" },
-        { link: "/favorites", name: "Избранные рецепты" },
-      ],
-    };
-  },
-};
+        { link: '/', name: 'Главная' },
+        { link: '/favorites', name: 'Избранные рецепты', favorite: true }
+      ]
+    }
+  }
+}
 </script>
 
 <style lang="scss" module>

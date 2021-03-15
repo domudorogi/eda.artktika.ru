@@ -2,16 +2,25 @@
   <layout-section>
     <grid-container>
       <grid-row>
-        <grid-col :classList="['col-12', 'col-md-3']"></grid-col>
+        <grid-col :classList="['col-12', 'col-md-3']">
+          <layout-filter />
+        </grid-col>
         <grid-col :classList="['col-12', 'col-md-9']">
           <grid-row>
-            <grid-col
-              v-for="(recipe, index) in recipes"
-              :key="index"
-              :classList="['col-12', 'col-md-4']"
-            >
-              <ui-card :recipe="recipe" />
-            </grid-col>
+            <template v-if="isLoading">
+              <grid-col
+                v-for="(recipe, index) in recipes"
+                :key="index"
+                :classList="['col-12', 'col-md-6', 'col-lg-4']"
+              >
+                <ui-card :recipe="recipe" />
+              </grid-col>
+            </template>
+            <template v-else>
+              <grid-col>
+                <ui-skeleton />
+              </grid-col>
+            </template>
           </grid-row>
         </grid-col>
       </grid-row>
@@ -20,29 +29,40 @@
 </template>
 
 <script>
-import GridContainer from "@/components/grid/GridContainer";
-import GridRow from "@/components/grid/GridRow";
-import GridCol from "@/components/grid/GridCol";
-import LayoutSection from "@/components/layout/LayoutSection";
-import UiCard from "@/components/ui/UiCard";
-import { mapGetters } from "vuex";
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+import GridContainer from '@/components/grid/GridContainer'
+import GridRow from '@/components/grid/GridRow'
+import GridCol from '@/components/grid/GridCol'
+import LayoutSection from '@/components/layout/LayoutSection'
+import LayoutFilter from '@/components/layout/LayoutFilter'
+import UiCard from '@/components/ui/UiCard'
+import UiSkeleton from '@/components/ui/UiSkeleton'
 
 export default {
-  name: "ViewMain",
+  name: 'ViewMain',
   components: {
     GridContainer,
     GridRow,
     GridCol,
     LayoutSection,
     UiCard,
+    LayoutFilter,
+    UiSkeleton
   },
-  computed: {
-    ...mapGetters(["getRecipes"]),
-    recipes() {
-      return this.getRecipes;
-    },
-  },
-};
+  setup () {
+    const store = useStore()
+    const recipes = computed(() => store.getters.getRecipes)
+    const isLoading = computed(() => store.getters.getRecipesLoader)
+
+    store.dispatch('loadRecipes')
+
+    return {
+      recipes,
+      isLoading
+    }
+  }
+}
 </script>
 
 <style lang="scss" module></style>

@@ -7,18 +7,16 @@
 </template>
 
 <script>
-import LayoutHeader from "@/components/layout/LayoutHeader";
-import LayoutFooter from "@/components/layout/LayoutFooter";
+import LayoutHeader from '@/components/layout/LayoutHeader'
+import LayoutFooter from '@/components/layout/LayoutFooter'
 
 export default {
   components: {
     LayoutHeader,
-    LayoutFooter,
+    LayoutFooter
   },
-  created() {
-    this.$store.dispatch("loadRecipes");
-  },
-};
+  created () {}
+}
 </script>
 
 <style lang="scss"></style>
