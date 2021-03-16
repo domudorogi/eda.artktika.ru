@@ -1,4 +1,5 @@
 <template>
+  <layout-search />
   <layout-section>
     <grid-container>
       <grid-row>
@@ -36,6 +37,7 @@ import GridRow from '@/components/grid/GridRow'
 import GridCol from '@/components/grid/GridCol'
 import LayoutSection from '@/components/layout/LayoutSection'
 import LayoutFilter from '@/components/layout/LayoutFilter'
+import LayoutSearch from '@/components/layout/LayoutSearch'
 import UiCard from '@/components/ui/UiCard'
 import UiSkeleton from '@/components/ui/UiSkeleton'
 
@@ -48,7 +50,8 @@ export default {
     LayoutSection,
     UiCard,
     LayoutFilter,
-    UiSkeleton
+    UiSkeleton,
+    LayoutSearch
   },
   setup () {
     const store = useStore()

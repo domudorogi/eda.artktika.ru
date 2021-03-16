@@ -7,10 +7,7 @@
     />
     <div :class="[$customStyle['card-body']]">
       <h5 :class="[$customStyle['card-title']]">{{ recipe.title }}</h5>
-      <div
-        v-html="recipe.description"
-        :class="[$customStyle['card-text']]"
-      ></div>
+      <div v-html="recipe.description" :class="[$customStyle['card-text']]"></div>
     </div>
     <ul :class="[$customStyle['list-group'], $customStyle['list-group-flush']]">
       <li :class="[$customStyle['list-group-item']]">
@@ -23,25 +20,14 @@
       </li>
     </ul>
     <div :class="[$customStyle['card-body']]">
-      <div
-        :class="[
-          $customStyle['d-flex'],
-          $customStyle['justify-content-between']
-        ]"
-      >
+      <div :class="[$customStyle['d-flex'], $customStyle['justify-content-between']]">
         <ui-button
           :to="/recipe/ + recipe.id"
           :class="[$customStyle['btn-primary'], $customStyle['btn']]"
         >
           Подробнее
         </ui-button>
-        <ui-button
-          :class="buttonFavoriteClasses"
-          @click="
-            setFavoriteRecipe()
-            showAlert()
-          "
-        >
+        <ui-button :class="buttonFavoriteClasses" @click="setFavoriteRecipe(), showAlert()">
           ★
         </ui-button>
       </div>
@@ -75,9 +61,7 @@ export default {
     const { proxy } = getCurrentInstance()
     const isActiveAlert = ref(false)
     const isActiveFavoriteButton = computed(() => {
-      return store.getters.getFavoriteRecipes.some(
-        recipe => recipe.id == props.recipe.id
-      )
+      return store.getters.getFavoriteRecipes.some(recipe => recipe.id == props.recipe.id)
     })
     const buttonFavoriteClasses = computed(() => {
       const activeClass = isActiveFavoriteButton.value
@@ -89,11 +73,7 @@ export default {
       const activeClass = isActiveFavoriteButton.value
         ? proxy.$customStyle['alert-success']
         : proxy.$customStyle['alert-danger']
-      return [
-        proxy.$customStyle['alert'],
-        proxy.$style['alert-fixed'],
-        activeClass
-      ]
+      return [proxy.$customStyle['alert'], proxy.$style['alert-fixed'], activeClass]
     })
     const alertText = computed(() => {
       return isActiveFavoriteButton.value

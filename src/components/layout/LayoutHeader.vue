@@ -1,24 +1,20 @@
 <template>
-  <header :class="[$style['header'], $customStyle['sticky-top']]">
-    <div
-      :class="[
-        $style['header__top'],
-        $customStyle['pt-3'],
-        $customStyle['pb-3']
-      ]"
-    >
+  <header
+    :class="[
+      $style['header'],
+      $customStyle['sticky-top'],
+      $customStyle['pt-3'],
+      $customStyle['pb-3']
+    ]"
+  >
+    <div :class="[$style['header__top']]">
       <grid-container>
         <grid-row :class="[$customStyle['align-items-center']]">
           <grid-col :classList="['col-12', 'col-md-4']">
             <logotype logoText="Eda" />
           </grid-col>
           <grid-col :classList="['col-12', 'col-md-8']">
-            <nav
-              :class="[
-                $customStyle['nav'],
-                $customStyle['justify-content-end']
-              ]"
-            >
+            <nav :class="[$customStyle['nav'], $customStyle['justify-content-end']]">
               <router-link
                 v-for="(link, index) in navLinks"
                 :key="index"
@@ -34,28 +30,6 @@
                 </span>
               </router-link>
             </nav>
-          </grid-col>
-        </grid-row>
-      </grid-container>
-    </div>
-    <div
-      :class="[
-        $style['header__bottom'],
-        $customStyle['pt-3'],
-        $customStyle['pb-3']
-      ]"
-    >
-      <grid-container>
-        <grid-row>
-          <grid-col>
-            <input
-              type="text"
-              :class="[
-                $customStyle['form-control'],
-                $customStyle['form-control-lg']
-              ]"
-              id=""
-            />
           </grid-col>
         </grid-row>
       </grid-container>
@@ -81,9 +55,7 @@ export default {
   },
   setup () {
     const store = useStore()
-    const favoriteCount = computed(
-      () => store.getters.getFavoriteRecipes.length
-    )
+    const favoriteCount = computed(() => store.getters.getFavoriteRecipes.length)
 
     return {
       favoriteCount,
@@ -99,10 +71,6 @@ export default {
 <style lang="scss" module>
 .header {
   background-color: $blue-500;
-
-  &__bottom {
-    background-color: $gray-100;
-  }
 }
 
 .header-link {
