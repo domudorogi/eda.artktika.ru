@@ -7,11 +7,9 @@
     :id="id"
     @input="check()"
     v-bind="$attrs"
+    :checked="checked"
   />
-  <label
-    :class="[$customStyle['btn'], $customStyle['btn-outline-primary']]"
-    :for="id"
-  >
+  <label :class="[$customStyle['btn'], $customStyle['btn-outline-primary']]" :for="id">
     <slot />
   </label>
 </template>
@@ -43,6 +41,9 @@ export default {
     recipes: {
       type: Array,
       required: true
+    },
+    checked: {
+      type: Boolean
     }
   },
   setup (props, context) {
@@ -50,17 +51,14 @@ export default {
 
     function check () {
       let updatedRecipes = [...props.recipes]
-      if (this.checked) {
-        updatedRecipes.splice(updatedRecipes.indexOf(props.value), 1)
-      } else {
-        updatedRecipes.push(props.value)
-      }
+      checked.value
+        ? updatedRecipes.splice(updatedRecipes.indexOf(props.value), 1)
+        : updatedRecipes.push(props.value)
       context.emit('update:recipes', updatedRecipes)
     }
 
     return {
-      check,
-      checked
+      check
     }
   }
 }

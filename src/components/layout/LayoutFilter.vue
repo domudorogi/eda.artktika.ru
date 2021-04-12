@@ -1,8 +1,6 @@
 <template>
-  <div
-    :class="[$customStyle['d-flex'], $customStyle['flex-wrap']]"
-    v-if="isLoading"
-  >
+  <div :class="[$customStyle['d-flex'], $customStyle['flex-wrap']]" v-if="isLoading">
+    {{ queryProducts }}
     <div
       :class="[$customStyle['me-2'], $customStyle['mb-2']]"
       v-for="(product, index) in products"
@@ -13,8 +11,9 @@
         name="productsFilter"
         :id="'product' + index"
         :value="product.product"
+        :checked="checkedValue(product.product)"
         v-model:recipes="recipes"
-        @change="filterRecipes(recipes)"
+        @change="filterRecipes(recipes), checkedValue(product.product)"
       >
         {{ product.product }}
       </ui-checkbox-button>
@@ -37,30 +36,31 @@ export default {
   name: 'LayoutFilter',
   setup () {
     const recipes = ref([])
-    const query = ref('')
     const store = useStore()
+    const query = computed(() => store.getters.getQueryRecipes)
     const products = computed(() => store.getters.getProducts)
+    const queryProducts = computed(() => store.getters.getQueryRecipesProducts)
     const isLoading = computed(() => store.getters.getProductsLoader)
 
     store.dispatch('loadProducts')
 
-    function filterRecipes (params) {
-      query.value = ''
-      params.forEach((element, index) => {
-        index === 0
-          ? (query.value += `?p=${element}`)
-          : (query.value += `&p=${element}`)
-      })
+    function filterRecipes () {
+      store.commit('SET_QUERY_RECIPES', { key: 'p', query: recipes })
       store.commit('SET_RECIPES_LOADER', false)
       store.dispatch('loadRecipes', query.value)
     }
 
+    function checkedValue (product) {
+      return queryProducts.value.includes(product)
+    }
+
     return {
       recipes,
-      query,
       filterRecipes,
       products,
-      isLoading
+      isLoading,
+      checkedValue,
+      queryProducts
     }
   }
 }

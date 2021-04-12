@@ -4,6 +4,7 @@
     <grid-container>
       <grid-row>
         <grid-col :classList="['col-12', 'col-md-3']">
+          {{ query }}
           <layout-filter />
         </grid-col>
         <grid-col :classList="['col-12', 'col-md-9']">
@@ -57,12 +58,14 @@ export default {
     const store = useStore()
     const recipes = computed(() => store.getters.getRecipes)
     const isLoading = computed(() => store.getters.getRecipesLoader)
+    const query = computed(() => store.getters.getQueryRecipes)
 
-    store.dispatch('loadRecipes')
+    store.dispatch('loadRecipes', query.value)
 
     return {
       recipes,
-      isLoading
+      isLoading,
+      query
     }
   }
 }

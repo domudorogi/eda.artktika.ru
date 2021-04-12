@@ -14,8 +14,7 @@ export default {
   components: {
     LayoutHeader,
     LayoutFooter
-  },
-  created () {}
+  }
 }
 </script>
 

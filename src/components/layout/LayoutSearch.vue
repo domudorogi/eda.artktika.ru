@@ -3,14 +3,14 @@
     <grid-container>
       <grid-row>
         <grid-col>
-          <ui-input 
-            :class="[
-              $customStyle['form-control'],
-              $customStyle['form-control-lg']
-            ]" 
-            :input="select" 
-            :placeholder="Набирай" 
-            :id="search" />
+          <ui-input
+            :class="[$customStyle['form-control'], $customStyle['form-control-lg']]"
+            placeholder="Введите заголовок рецепта"
+            id="search"
+            :value="inputValue"
+            v-model:title="recipeTitle"
+            @input="searchRecipes(recipeTitle)"
+          />
         </grid-col>
       </grid-row>
     </grid-container>
@@ -18,7 +18,8 @@
 </template>
 
 <script>
-//import { computed } from 'vue'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
 import GridContainer from '@/components/grid/GridContainer'
 import GridRow from '@/components/grid/GridRow'
 import GridCol from '@/components/grid/GridCol'
@@ -35,7 +36,22 @@ export default {
     UiInput
   },
   setup () {
+    const store = useStore()
+    const recipeTitle = ref('')
+    const inputValue = computed(() => store.getters.getQueryRecipesSearch)
+    const query = computed(() => store.getters.getQueryRecipes)
+
+    function searchRecipes (recipeTitle) {
+      store.commit('SET_QUERY_RECIPES', { key: 's', query: recipeTitle })
+      store.commit('SET_RECIPES_LOADER', false)
+      store.dispatch('loadRecipes', query.value)
+    }
+
     return {
+      searchRecipes,
+      recipeTitle,
+      query,
+      inputValue
     }
   }
 }
